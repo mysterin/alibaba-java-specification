@@ -316,7 +316,7 @@ NPE 问题，或者入库检查，都由使用者来保证。
 
 1. 【强制】关于 `hashCode` 和 `equals` 的处理，遵循如下规则：  
 1） 只要重写 `equals`，就必须重写 `hashCode。`  
-2） 因为 `Set` 存储的是不重复的对象，依据 `hashCode` 和 `equals` 进行判断，所以 `Set` 存储的对象必须重写这两个方法。
+2） 因为 `Set` 存储的是不重复的对象，依据 `hashCode` 和 `equals` 进行判断，所以 `Set` 存储的对象必须重写这两个方法。  
 3） 如果自定义对象做为 `Map` 的键，那么必须重写 `hashCode` 和 `equals`。  
 **说明：** `String` 重写了 `hashCode` 和 `equals` 方法，所以我们可以非常愉快地使用 `String` 对象作为 `key` 来使用。
 
@@ -442,7 +442,7 @@ NPE 问题，或者入库检查，都由使用者来保证。
     2. `CachedThreadPool` 和 `ScheduledThreadPool`:  
         允许的创建线程数量为 `Integer.MAX_VALUE`，可能会创建大量的线程，从而导致 OOM。
 
-5. 【强制】`SimpleDateFormat` 是线程不安全的类，一般不要定义为 `static` 变量，如果定义为 `static`，必须加锁，或者使用 `DateUtils` 工具类。
+5. 【强制】`SimpleDateFormat` 是线程不安全的类，一般不要定义为 `static` 变量，如果定义为 `static`，必须加锁，或者使用 `DateUtils` 工具类。  
 **正例：** 注意线程安全，使用 `DateUtils`。亦推荐如下处理：
 
         private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>() {
@@ -469,11 +469,11 @@ immutable thread-safe。
 10. 【推荐】使用 `CountDownLatch` 进行异步转同步操作，每个线程退出前必须调用 `countDown` 方法，线程执行代码注意 catch 异常，确保 `countDown` 方法可以执行，避免主线程无法执行至 `await` 方法，直到超时才返回结果。  
 **说明：** 注意，子线程抛出异常堆栈，不能在主线程 try-catch 到。
 
-11. 【推荐】避免 `Random` 实例被多线程使用，虽然共享该实例是线程安全的，但会因竞争同一 seed 导致的性能下降。
-**说明：** `Random` 实例包括 `java.util.Random` 的实例或者 `Math.random()` 的方式。
+11. 【推荐】避免 `Random` 实例被多线程使用，虽然共享该实例是线程安全的，但会因竞争同一 seed 导致的性能下降。  
+**说明：** `Random` 实例包括 `java.util.Random` 的实例或者 `Math.random()` 的方式。  
 **正例：** 在 JDK7 之后，可以直接使用 API `ThreadLocalRandom`，而在 JDK7 之前，需要编码保证每个线程持有一个实例。
 
-12. 【推荐】在并发场景下，通过双重检查锁（double-checked locking）实现延迟初始化的优化问题隐患(可参考 The "Double-Checked Locking is Broken" Declaration)，推荐问题解决方案中较为简单一种（适用于 JDK5 及以上版本），将目标属性声明为 `volatile` 型。
+12. 【推荐】在并发场景下，通过双重检查锁（double-checked locking）实现延迟初始化的优化问题隐患(可参考 The "Double-Checked Locking is Broken" Declaration)，推荐问题解决方案中较为简单一种（适用于 JDK5 及以上版本），将目标属性声明为 `volatile` 型。  
 **反例：** 
 
         class Foo {
@@ -509,7 +509,7 @@ immutable thread-safe。
         }
         // 接着写 else 的业务逻辑代码;
 
-    **说明：** 如果非得使用 if()...else if()...else...方式表达逻辑，【强制】避免后续代码维护困难，请勿超过 3 层。
+    **说明：** 如果非得使用 if()...else if()...else...方式表达逻辑，【强制】避免后续代码维护困难，请勿超过 3 层。  
     **正例：** 逻辑上超过 3 层的 if-else 代码可以使用卫语句，或者状态模式来实现。卫语句示例如下：
 
         public void today() {
@@ -526,7 +526,7 @@ immutable thread-safe。
         }
 
 4. 【推荐】除常用方法（如 getXxx/isXxx）等外，不要在条件判断中执行其它复杂的语句，将复杂逻辑判断的结果赋值给一个有意义的布尔变量名，以提高可读性。  
-**说明：** 很多 if 语句内的逻辑相当复杂，阅读者需要分析条件表达式的最终结果，才能明确什么样的条件执行什么样的语句，那么，如果阅读者分析逻辑表达式错误呢？
+**说明：** 很多 if 语句内的逻辑相当复杂，阅读者需要分析条件表达式的最终结果，才能明确什么样的条件执行什么样的语句，那么，如果阅读者分析逻辑表达式错误呢？  
     **正例：** 
 
         //伪代码如下
@@ -656,12 +656,12 @@ NumberFormatException 来实现。
 
 10. 【推荐】防止 NPE，是程序员的基本修养，注意 NPE 产生的场景：  
     1）返回类型为基本数据类型，return 包装数据类型的对象时，自动拆箱有可能产生 NPE。  
-    **反例：** `public int f() { return Integer 对象}`， 如果为 null，自动解箱抛 NPE。
-    2） 数据库的查询结果可能为 null。
-    3） 集合里的元素即使 isNotEmpty，取出的数据元素也可能为 null。
-    4） 远程调用返回对象时，一律要求进行空指针判断，防止 NPE。
-    5） 对于 Session 中获取的数据，建议 NPE 检查，避免空指针。
-    6） 级联调用 obj.getA().getB().getC()；一连串调用，易产生 NPE。
+        **反例：** `public int f() { return Integer 对象}`， 如果为 null，自动解箱抛 NPE。  
+    2） 数据库的查询结果可能为 null。  
+    3） 集合里的元素即使 isNotEmpty，取出的数据元素也可能为 null。  
+    4） 远程调用返回对象时，一律要求进行空指针判断，防止 NPE。  
+    5） 对于 Session 中获取的数据，建议 NPE 检查，避免空指针。  
+    6） 级联调用 obj.getA().getB().getC()；一连串调用，易产生 NPE。  
     **正例：** 使用 JDK8 的 Optional 类来防止 NPE 问题。
 
 11. 【推荐】定义时区分 unchecked / checked 异常，避免直接抛出 `new RuntimeException()`，更不允许抛出 Exception 或者 Throwable，应使用有业务含义的自定义异常。推荐业界已定义过的自定义异常，如：DAOException / ServiceException 等。
@@ -672,7 +672,7 @@ NumberFormatException 来实现。
     2）如果不加栈信息，只是 new 自定义异常，加入自己的理解的 error message，对于调用端解决问题的帮助不会太多。如果加了栈信息，在频繁调用出错的情况下，数据序列化和传输的性能损耗也是问题。
 
 13. 【参考】避免出现重复的代码（Don’t Repeat Yourself），即 DRY 原则。  
-**说明：** 随意复制和粘贴代码，必然会导致代码的重复，在以后需要修改时，需要修改所有的副本，容易遗漏。必要时抽取共性方法，或者抽象公共类，甚至是共用模块。
+**说明：** 随意复制和粘贴代码，必然会导致代码的重复，在以后需要修改时，需要修改所有的副本，容易遗漏。必要时抽取共性方法，或者抽象公共类，甚至是共用模块。  
 **正例：** 一个类中有多个 public 方法，都需要进行数行相同的参数校验操作，这个时候请抽取：
 `private boolean checkParam(DTO dto) {...}`
 
@@ -680,9 +680,9 @@ NumberFormatException 来实现。
 
 1. 【强制】应用中不可直接使用日志系统（Log4j、Logback）中的 API，而应依赖使用日志框架 SLF4J 中的 API，使用门面模式的日志框架，有利于维护和各个类的日志处理方式统一。
 
-    import org.slf4j.Logger;
-    import org.slf4j.LoggerFactory;
-    private static final Logger logger = LoggerFactory.getLogger(Abc.class);
+        import org.slf4j.Logger;
+        import org.slf4j.LoggerFactory;
+        private static final Logger logger = LoggerFactory.getLogger(Abc.class);
 
 2. 【强制】日志文件推荐至少保存 15 天，因为有些异常具备以“周”为频次发生的特点。
 
@@ -694,26 +694,25 @@ NumberFormatException 来实现。
 4. 【强制】对 trace/debug/info 级别的日志输出，必须使用条件输出形式或者使用占位符的方
 式。  
 **说明：** logger.debug("Processing trade with id: " + id + " symbol: " + symbol);如果日志级别是 warn，上述日志不会打印，但是会执行字符串拼接操作，如果 symbol 是对象，会执行 toString() 方法，浪费了系统资源，执行了上述操作，最终日志却没有打印。  
-**正例：** （条件）
+    **正例：** （条件）
 
         if (logger.isDebugEnabled()) {
             logger.debug("Processing trade with id: " + id + " symbol: " + symbol);
         }
 
-**正例：** （占位符）
+    **正例：** （占位符）
 
         logger.debug("Processing trade with id: {} symbol : {} ", id, symbol);
 
 5. 【强制】避免重复打印日志，浪费磁盘空间，务必在 log4j.xml 中设置 additivity=false。  
-**正例：** <logger name="com.taobao.dubbo.config" additivity="false">
+**正例：** `<logger name="com.taobao.dubbo.config" additivity="false">`
 
 6. 【强制】异常信息应该包括两类信息：案发现场信息和异常堆栈信息。如果不处理，那么通过关键字 throws 往上抛出。  
 **正例：** logger.error(各类参数或者对象 toString + "_" + e.getMessage(), e);
 
 7. 【推荐】谨慎地记录日志。生产环境禁止输出 debug 日志；有选择地输出 info 日志；如果使用 warn 来记录刚上线时的业务行为信息，一定要注意日志输出量的问题，避免把服务器磁盘
-撑爆，并记得及时删除这些观察日志。
-**说明：** 大量地输出无效日志，不利于系统性能提升，也不利于快速定位错误点。记录日志时请
-思考：这些日志真的有人看吗？看到这条日志你能做什么？能不能给问题排查带来好处？
+撑爆，并记得及时删除这些观察日志。  
+**说明：** 大量地输出无效日志，不利于系统性能提升，也不利于快速定位错误点。记录日志时请思考：这些日志真的有人看吗？看到这条日志你能做什么？能不能给问题排查带来好处？
 
 8. 【参考】可以使用 warn 日志级别来记录用户输入参数错误的情况，避免用户投诉时，无所适从。注意日志输出的级别，error 级别只记录系统逻辑出错、异常等重要的错误信息。如非必要，请不要在此场景打出 error 级别。
 
@@ -832,10 +831,10 @@ and b=? 那么即使 a 的区分度更高，也必须把 b 放在索引的最前
 **正例：** 可以使用如下方式来避免 sum 的 NPE 问题：SELECT IF(ISNULL(SUM(g)),0,SUM(g)) FROM table;
 
 4. 【强制】使用 ISNULL()来判断是否为 NULL 值。注意：NULL 与任何值的直接比较都为 NULL。  
-**说明：** 
-    1） NULL<>NULL 的返回结果是 NULL，而不是 false。
-    2） NULL=NULL 的返回结果是 NULL，而不是 true。
-    3） NULL<>1 的返回结果是 NULL，而不是 true。
+**说明：**   
+    1） NULL<>NULL 的返回结果是 NULL，而不是 false。  
+    2） NULL=NULL 的返回结果是 NULL，而不是 true。  
+    3） NULL<>1 的返回结果是 NULL，而不是 true。  
 
 5. 【强制】在代码中写分页查询逻辑时，若 count 为 0 应直接返回，避免执行后面的分页语句。
 
