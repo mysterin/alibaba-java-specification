@@ -23,8 +23,8 @@
     **反例：** `_name / __name / $Object / name_ / name$ / Object$`
 
 2. 【强制】代码中的命名严禁使用拼音与英文混合的方式，更不允许直接使用中文的方式。说明：正确的英文拼写和语法可以让阅读者易于理解，避免歧义。注意，即使纯拼音命名方式也要避免采用。  
-    **正例：**  `alibaba / taobao / youku / hangzhou` 等国际通用的名称，可视同英文。  
-    **反例：**  `DaZhePromotion [打折] / getPingfenByName() [评分] / int 某变量 = 3`
+    **正例：** `alibaba / taobao / youku / hangzhou` 等国际通用的名称，可视同英文。  
+    **反例：** `DaZhePromotion [打折] / getPingfenByName() [评分] / int 某变量 = 3`
 
 3. 【强制】类名使用 `UpperCamelCase` 风格，必须遵从驼峰形式，但以下情形例外：`DO / BO / DTO / VO / AO`  
     **正例：** `MarcoPolo / UserDO / XmlService / TcpUdpDeal / TaPromotion`  
@@ -42,16 +42,16 @@
     **反例：** 使用 `String args[]` 的方式来定义。
 
 8. 【强制】POJO 类中布尔类型的变量，都不要加 is，否则部分框架解析会引起序列化错误。  
-    **反例：**  定义为基本数据类型 `Boolean isDeleted`；的属性，它的方法也是 `isDeleted()`，RPC 框架在反向解析的时候，“以为”对应的属性名称是 `deleted`，导致属性获取不到，进而抛出异常。
+    **反例：** 定义为基本数据类型 `Boolean isDeleted`；的属性，它的方法也是 `isDeleted()`，RPC 框架在反向解析的时候，“以为”对应的属性名称是 `deleted`，导致属性获取不到，进而抛出异常。
 
 9. 【强制】包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用单数形式，但是类名如果有复数含义，类名可以使用复数形式。  
-    **正例：**  应用工具类包名为 `com.alibaba.open.util`、类名为 `MessageUtils`（此规则参考 spring 的框架结构）
+    **正例：** 应用工具类包名为 `com.alibaba.open.util`、类名为 `MessageUtils`（此规则参考 spring 的框架结构）
 
 10. 【强制】杜绝完全不规范的缩写，避免望文不知义。  
-    **反例：**  `AbstractClass` “缩写”命名成 `AbsClass`；`condition` “缩写”命名成 `condi`，此类随意缩写严重降低了代码的可阅读性。
+    **反例：** `AbstractClass` “缩写”命名成 `AbsClass`；`condition` “缩写”命名成 `condi`，此类随意缩写严重降低了代码的可阅读性。
 
 11. 【推荐】如果使用到了设计模式，建议在类名中体现出具体模式。  
-    说明：将设计模式体现在名字中，有利于阅读者快速理解架构设计思想。  
+    **说明：** 将设计模式体现在名字中，有利于阅读者快速理解架构设计思想。  
     **正例：** 
 
             public class OrderFactory;
@@ -82,7 +82,7 @@
         4） 插入的方法用 `save`（推荐）或 `insert` 做前缀。  
         5） 删除的方法用 `remove`（推荐）或 `delete` 做前缀。  
         6） 修改的方法用 `update` 做前缀。  
-    2. 领域模型命名规约
+    2. 领域模型命名规约  
         1） 数据对象：`xxxDO`，`xxx` 即为数据表名。  
         2） 数据传输对象：`xxxDTO`，`xxx` 为业务领域相关的名称。  
         3） 展示对象：`xxxVO`，`xxx` 一般为网页名称。  
@@ -98,9 +98,9 @@
         cache.put(key, value);
 
 2. 【强制】long 或者 Long 初始赋值时，必须使用大写的 L，不能是小写的 l，小写容易跟数字 1 混淆，造成误解。
-    说明：`Long a = 2l`; 写的是数字的 21，还是 Long 型的 2?
+    说明：`Long a = 2l;` 写的是数字的 21，还是 Long 型的 2?
 
-3. 【推荐】不要使用一个常量类维护所有常量，应该按常量功能进行归类，分开维护。如：缓存相关的常量放在类：CacheConsts 下；系统配置相关的常量放在类：ConfigConsts 下。
+3. 【推荐】不要使用一个常量类维护所有常量，应该按常量功能进行归类，分开维护。如：缓存相关的常量放在类：CacheConsts 下；系统配置相关的常量放在类：ConfigConsts 下。  
     **说明：** 大而全的常量类，非得使用查找功能才能定位到修改的常量，不利于理解和维护。
 
 4. 【推荐】常量的复用层次有五层：跨应用共享常量、应用内共享常量、子工程内共享常量、包内共享常量、类内共享常量。
@@ -138,7 +138,7 @@ SUNDAY(7);}`
 
 5. 【强制】缩进采用 4 个空格，禁止使用 tab 字符。  
 **说明：** 如果使用 tab 缩进，必须设置 1 个 tab 为 4 个空格。IDEA 设置 tab 为 4 个空格时，请勿勾选 `Use tab character`；而在 eclipse 中，必须勾选 `insert spaces for tabs`。  
-**正例：**  （涉及 1-5 点）  
+**正例：** （涉及 1-5 点）  
 
         public static void main(String[] args) {
             // 缩进 4 个空格
@@ -222,8 +222,8 @@ SUNDAY(7);}`
 
 6. 【强制】`Object` 的 `equals` 方法容易抛空指针异常，应使用常量或确定有值的对象来调用
 `equals`。
-**正例：**  `"test".equals(object);`
-**反例：**  `object.equals("test");`
+**正例：** `"test".equals(object);`
+**反例：** `object.equals("test");`
 **说明：** 推荐使用 `java.util.Objects#equals` （JDK7 引入的工具类）
 
 
@@ -407,7 +407,7 @@ NPE 问题，或者入库检查，都由使用者来保证。
     |TreeMap| 不允许为 null| 允许为 null| AbstractMap| 线程不安全|
     |HashMap| 允许为 null| 允许为 null| AbstractMap| 线程不安全|
 
-    **反例：**  由于 `HashMap` 的干扰，很多人认为 `ConcurrentHashMap` 是可以置入 `null` 值，而事实上，存储 `null` 值时会抛出 NPE 异常。
+    **反例：** 由于 `HashMap` 的干扰，很多人认为 `ConcurrentHashMap` 是可以置入 `null` 值，而事实上，存储 `null` 值时会抛出 NPE 异常。
 
 12. 【参考】合理利用好集合的有序性(sort)和稳定性(order)，避免集合的无序性(unsort)和不稳定性(unorder)带来的负面影响。  
 **说明：** 有序性是指遍历的结果是按某种比较规则依次排列的。稳定性指集合每次遍历的元素次
@@ -587,7 +587,7 @@ immutable thread-safe。
 9. 【参考】对于注释的要求：第一、能够准确反应设计思想和代码逻辑；第二、能够描述业务含义，使别的程序员能够迅速了解到代码背后的信息。完全没有注释的大段代码对于阅读者形同天书，注释是给自己看的，即使隔很长时间，也能清晰理解当时的思路；注释也是给继任者看的，使其能够快速接替自己的工作。
 
 10. 【参考】好的命名、代码结构是自解释的，注释力求精简准确、表达到位。避免出现注释的一个极端：过多过滥的注释，代码的逻辑一旦修改，修改注释是相当大的负担。  
-    **反例：**   
+    **反例：**  
 
         // put elephant into fridge
         put(elephant, fridge);
@@ -685,7 +685,7 @@ NumberFormatException 来实现。
 2. 【强制】日志文件推荐至少保存 15 天，因为有些异常具备以“周”为频次发生的特点。
 
 3. 【强制】应用中的扩展日志（如打点、临时监控、访问日志等）命名方式：appName_logType_logName.log。logType:日志类型，推荐分类有 stats/desc/monitor/visit 等；logName:日志描述。这种命名的好处：通过文件名就可知道日志文件属于什么应用，什么类型，什么目的，也有利于归类查找。  
-**正例：**  mppserver 应用中单独监控时区转换异常，如： mppserver_monitor_timeZoneConvert.log  
+**正例：** mppserver 应用中单独监控时区转换异常，如： mppserver_monitor_timeZoneConvert.log  
 **说明：** 推荐对日志进行分类，如将错误日志和业务日志分开存放，便于开发人员查看，也便于
 通过日志对系统进行及时监控。
 
