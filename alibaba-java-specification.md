@@ -14,6 +14,37 @@
 
 《阿里巴巴 Java 开发手册》，开放包容地认真听取社区、博客、论坛的反馈，及时修正，保持与时俱进。请关注手册末页的“阿里技术”和“云栖社区”公众号获取最新版本。  
 
+## 目录
+<!-- MarkdownTOC -->
+
+- [编程规范](#%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83)
+    - [命名风格](#%E5%91%BD%E5%90%8D%E9%A3%8E%E6%A0%BC)
+    - [常量定义](#%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89)
+    - [代码格式](#%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F)
+    - [OOP 规约](#oop-%E8%A7%84%E7%BA%A6)
+    - [集合处理](#%E9%9B%86%E5%90%88%E5%A4%84%E7%90%86)
+    - [并发处理](#%E5%B9%B6%E5%8F%91%E5%A4%84%E7%90%86)
+    - [控制语句](#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5)
+    - [注释规约](#%E6%B3%A8%E9%87%8A%E8%A7%84%E7%BA%A6)
+    - [其他](#%E5%85%B6%E4%BB%96)
+- [异常日志](#%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97)
+    - [异常处理](#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
+    - [日志规约](#%E6%97%A5%E5%BF%97%E8%A7%84%E7%BA%A6)
+- [MYSQL 数据库](#mysql-%E6%95%B0%E6%8D%AE%E5%BA%93)
+    - [建表规约](#%E5%BB%BA%E8%A1%A8%E8%A7%84%E7%BA%A6)
+    - [索引规约](#%E7%B4%A2%E5%BC%95%E8%A7%84%E7%BA%A6)
+    - [SQL 语句](#sql-%E8%AF%AD%E5%8F%A5)
+    - [ORM 映射](#orm-%E6%98%A0%E5%B0%84)
+- [工程结构](#%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84)
+    - [应用分层](#%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%82)
+    - [二方库依赖](#%E4%BA%8C%E6%96%B9%E5%BA%93%E4%BE%9D%E8%B5%96)
+    - [服务器](#%E6%9C%8D%E5%8A%A1%E5%99%A8)
+- [安全规约](#%E5%AE%89%E5%85%A8%E8%A7%84%E7%BA%A6)
+- [附 1：版本历史](#%E9%99%84-1%EF%BC%9A%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2)
+- [附 2：本手册专有名词](#%E9%99%84-2%EF%BC%9A%E6%9C%AC%E6%89%8B%E5%86%8C%E4%B8%93%E6%9C%89%E5%90%8D%E8%AF%8D)
+
+<!-- /MarkdownTOC -->
+
 
 ## 编程规范
 
@@ -29,6 +60,7 @@
 3. 【强制】类名使用 `UpperCamelCase` 风格，必须遵从驼峰形式，但以下情形例外：`DO / BO / DTO / VO / AO`  
     **正例：** `MarcoPolo / UserDO / XmlService / TcpUdpDeal / TaPromotion`  
     **反例：** `macroPolo / UserDo / XMLService / TCPUDPDeal / TAPromotion`
+    
 4. 【强制】方法名、参数名、成员变量、局部变量都统一使用 `lowerCamelCase` 风格，必须遵从驼峰形式。  
     **正例：** `localValue / getHttpMessage() / inputUserId`
 
@@ -52,11 +84,11 @@
 
 11. 【推荐】如果使用到了设计模式，建议在类名中体现出具体模式。  
     **说明：** 将设计模式体现在名字中，有利于阅读者快速理解架构设计思想。  
-    **正例：** 
+    **正例：**  
 
-            public class OrderFactory;
-            public class LoginProxy;
-            public class ResourceObserver;
+        public class OrderFactory;
+        public class LoginProxy;
+        public class ResourceObserver;
 
 12. 【推荐】接口类中的方法和属性不要加任何修饰符号（`public` 也不要加），保持代码的简洁性，并加上有效的 Javadoc 注释。尽量不要在接口里定义变量，如果一定要定义变量，肯定是与接口方法相关，并且是整个应用的基础常量。  
     **正例：** 接口方法签名：`void f();`  
